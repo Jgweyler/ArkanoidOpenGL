@@ -9,14 +9,16 @@
 class Drawable {
 private:
 
-	Geometry geometry_;
-	Material material_;
+	Geometry* geometry_;
+	Material*  material_;
 
 public:
 	Drawable();
-	Drawable(Geometry &geometry, Material &material);
+	Drawable(Geometry * geometry, Material * material);
 	~Drawable();
-	void render(glm::mat4 projection, glm::mat4 view, glm::vec3 position, glm::vec3 cameraPos,  glm::vec3 lightPos);
+
+	float getGeometryRadius() const;
+	void render(glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::vec3 cameraPos,  glm::vec3 lightPos);
 
 };
 #endif

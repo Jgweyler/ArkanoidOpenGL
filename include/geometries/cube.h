@@ -10,7 +10,7 @@ private:
 	void createCube(const glm::vec3 center, const float radius);
 
 public:
-	Cube(const glm::vec3 center, const float radius);
+	Cube(const glm::vec3 center, const float geometryRadius);
 	~Cube();
 };
 

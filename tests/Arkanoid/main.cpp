@@ -1,12 +1,15 @@
 #include <window.h>
 #include <gpu.h>
 #include <geometries/cube.h>
+#include <geometries/sphere.h>
 
 #include<glm/glm.hpp>
 #include<glm/gtc/matrix_transform.hpp>
 #include<glm/gtc/type_ptr.hpp>
 
 #include<gameObjects/platform.h>
+#include <gameObjects/ball.h>
+#include <gameObjects\level.h>
 #include<scene.h>
 
 Camera camera(glm::vec3(0.0f, 10.0f, 30.0f));
@@ -24,25 +27,36 @@ int main(int argc, char* argv[]) {
 	GPU gpu;
 
 	Cube cube(glm::vec3(0.0f, 0.0f, 0.0f), 0.5f);
+	Sphere sphere(1.0f);
 
 	gpu.createVertexData(cube);
+	gpu.createVertexData(sphere);
 
 	Shader shader_light("../tests/Arkanoid/light.vs", "../tests/Arkanoid/light.fs");
 
 	Material material("../tests/Arkanoid/shader.vs", "../tests/Arkanoid/shader.fs",
-		"../tests/Arkanoid/Textures/diffuse.jpg", "../tests/Arkanoid/Textures/specular.jpg");
+		"../tests/Arkanoid/Textures/diffuse_1.jpg", "../tests/Arkanoid/Textures/specular_1.jpg");
 
-	Drawable drawable(cube, material);
-	Platform player(drawable);
+	Material sphereMaterial("../tests/Arkanoid/Shaders/shader.vs", "../tests/Arkanoid/Shaders/shader.fs");
+
+	Drawable drawable_cube(&cube, &material);
+	Drawable drawable_sphere(&sphere, &sphereMaterial);
+
+	Platform player(drawable_cube);
+	Ball ball(&drawable_sphere, &player);
+
+	Wall wall_left(&drawable_cube, glm::vec3(-11.5f, 0.0f, 0.0f));
+	Wall wall_right(&drawable_cube, glm::vec3(11.5f, 0.0f, 0.0f));
+	Wall wall_top(&drawable_cube, glm::vec3(0.0f, 0.0f, 0.0f));
+
+	LevelBoundaries walls(&wall_top, &wall_left, &wall_right);
+	Level level(&drawable_cube, &ball, "../tests/Arkanoid/Levels/level1.txt");
 
 	Scene scene;
 	scene.addGameObject(&player);
-
-	glm::mat4 projection = glm::mat4(1.0f);
-	projection = glm::perspective(glm::radians(camera.getFOV()), (float)k_screen_width / (float)k_screen_height, 0.1f, 100.0f);
-
-	glm::mat4 view = camera.getViewMatrix();
-
+	scene.addGameObject(&ball);
+	scene.addGameObject(&walls);
+	scene.addGameObject(&level);
 
 	//glfwSetCursorPosCallback(window, onMouse);
 	//glfwSetScrollCallback(window, onScroll);
@@ -61,7 +75,9 @@ int main(int argc, char* argv[]) {
 		float deltaTime = currentFrame - lastFrame;
 		lastFrame = currentFrame;
 
-		window.handleInput(player, deltaTime);
+		ball.setCollideThisFrame(false);
+
+		window.handleInput(player, ball, deltaTime);
 		scene.update(deltaTime);
 		scene.render();
 

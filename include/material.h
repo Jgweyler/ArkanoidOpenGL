@@ -12,6 +12,8 @@ private:
 public:
 	
 	Material();
+	Material(Shader& shader);
+	Material(const char* vertexPath, const char* fragmentPath);
 	Material(const char* vertexPath, const char* fragmentPath, const char * diffuseTexPath, const char * specularTexPath);
 	Material(Shader& shader, Texture& diffuse, Texture& specular);
 	~Material();

@@ -5,6 +5,7 @@
 #include <GLFW/glfw3.h>
 
 #include<gameObjects\platform.h>
+#include <gameObjects\ball.h>
 
 #include <cstdint>
 
@@ -27,7 +28,7 @@ public:
 	bool shouldClose();
 	void swapBuffers();
 
-	void handleInput(Platform &player, const float dt);
+	void handleInput(Platform &player,Ball &ball, const float dt);
 	void render(Platform &player, glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPos, glm::vec3 lightPos);
 };
 

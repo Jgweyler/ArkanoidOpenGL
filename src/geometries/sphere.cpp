@@ -4,6 +4,8 @@ Sphere::Sphere (const float radius) {
 
 	type = Geometry::Type::Sphere;
 
+	this->radius = radius;
+
 	constexpr uint32_t slices = 10;
 	constexpr uint32_t stacks = 10;
 
@@ -84,4 +86,23 @@ void Sphere::generateVerts(const uint32_t slices, const uint32_t stacks, const u
 			}
 		}
 	}
+
+	for (uint32_t i = 0; i < vertexDataSize; i++) {
+
+		std::cout << vertexData[i] << ", \t\t";
+		
+		if ((i + 1) % 3 == 0)
+			std::cout << std::endl;
+	}
+
+	std::cout << std::endl << std::endl;
+
+	for (uint32_t i = 0; i < elementsDataSize; i++) {
+		std::cout << elementsData[i] << ", ";
+
+		if ((i + 1) % 3 == 0)
+			std::cout << std::endl;
+	}
+
+	std::cout << std::endl << std::endl;
 }

@@ -10,6 +10,14 @@ Material::Material(Shader & shader, Texture & diffuse, Texture & specular) {
 	texture_specular = specular;
 }
 
+Material::Material(Shader& shader) {
+	shader_ = shader;
+}
+
+Material::Material(const char* vertexPath, const char* fragmentPath) {
+	shader_.initialize(vertexPath, fragmentPath);
+}
+
 Material::Material(const char* vertexPath, const char* fragmentPath, const char * diffuseTexPath, const char * specularTexPath) {
 	
 	shader_.initialize(vertexPath, fragmentPath);
@@ -17,9 +25,9 @@ Material::Material(const char* vertexPath, const char* fragmentPath, const char 
 	texture_specular.initialize(specularTexPath);
 }
 Material::~Material() {
-	shader_.~Shader();
-	texture_diffuse.~Texture();
-	texture_specular.~Texture();
+	//shader_.~Shader();
+	//texture_diffuse.~Texture();
+	//texture_specular.~Texture();
 }
 
 void Material::use() const {

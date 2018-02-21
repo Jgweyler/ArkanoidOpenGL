@@ -18,6 +18,10 @@ public:
 	Geometry();
 	Geometry& operator=(const Geometry& other);
     ~Geometry();
+
+	//Radius of the geometry.
+	float radius; 
+
 	float * getVertexData();
 	float * getTexCoordData();
 	float * getNormalsData();
@@ -28,6 +32,8 @@ public:
 
 	float * getBufferData();
 	uint32_t getBufferDataSize();
+
+	float getRadius() const;
 
 	Geometry::Type getGeometryType() const;
 

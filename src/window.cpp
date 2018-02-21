@@ -58,7 +58,7 @@ void Window::swapBuffers() {
 	glfwSwapBuffers(window);
 }
 
-void Window::handleInput(Platform &player, const float dt) {
+void Window::handleInput(Platform &player, Ball &ball, const float dt) {
 	if (glfwGetKey(window, GLFW_KEY_ESCAPE) == GLFW_PRESS)
 		glfwSetWindowShouldClose(window, true);
 
@@ -67,6 +67,10 @@ void Window::handleInput(Platform &player, const float dt) {
 
 	if (glfwGetKey(window, GLFW_KEY_D) == GLFW_PRESS)
 		player.handleKeyboard(Platform::Movement::Right, dt);
+
+	if (glfwGetKey(window, GLFW_KEY_SPACE) == GLFW_PRESS) {
+		ball.startBall();
+	}
 
 }
 

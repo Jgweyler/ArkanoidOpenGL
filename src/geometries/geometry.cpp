@@ -11,6 +11,7 @@ Geometry::Geometry() {
 	normalsData = NULL;
 	texCoordsData = NULL;
 	elementsData = NULL;
+	radius = 0.0f;
 }
 
 Geometry& Geometry::operator=(const Geometry& other) {
@@ -57,7 +58,7 @@ uint32_t Geometry::getElementsDataSize() {
 
 float * Geometry::getBufferData() {
 
-	constexpr uint32_t maxBufferSize = 1000;
+	constexpr uint32_t maxBufferSize = 2000;
 
 	float bufferData[maxBufferSize];
 
@@ -84,6 +85,10 @@ float * Geometry::getBufferData() {
 
 uint32_t Geometry::getBufferDataSize() {
 	return vertexDataSize + texCoordsDataSize + normalsDataSize;
+}
+
+float Geometry::getRadius() const {
+	return radius;
 }
 
 Geometry::Type Geometry::getGeometryType() const {

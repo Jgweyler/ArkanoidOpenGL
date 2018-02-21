@@ -1,6 +1,8 @@
 #include <geometries\grid.h>
 
 Grid::Grid(const glm::vec3 center, const float radius) {
+
+	this->radius = radius;
 	const uint32_t nVertex = 4;
 
 	const uint32_t TOP_LEFT = 0;

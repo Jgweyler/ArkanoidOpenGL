@@ -1,8 +1,9 @@
 #include <geometries/cube.h>
 
-Cube::Cube(const glm::vec3 center, const float radius) {
+Cube::Cube(const glm::vec3 center, const float geometryRadius) {
 
 	type = Geometry::Type::Cube;
+	radius = geometryRadius;
 
 	constexpr uint32_t faces = 6;
 	constexpr uint32_t nVerts =  4 * faces; // 4 vertex per face (6).
