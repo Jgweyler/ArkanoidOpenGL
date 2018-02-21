@@ -5,7 +5,7 @@
 
 Level::Level() {}
 
-Level::Level( Drawable * cube_drawable, Ball* ball, const char* path) {
+Level::Level( Drawable*  cube_drawable, Ball* ball, const char* path) {
 	std::ifstream levelFile(path);
 
 	if (levelFile.is_open()) {

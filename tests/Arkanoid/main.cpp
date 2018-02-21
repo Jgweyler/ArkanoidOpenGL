@@ -12,6 +12,7 @@
 #include <gameObjects\level.h>
 #include<scene.h>
 
+
 Camera camera(glm::vec3(0.0f, 10.0f, 30.0f));
 glm::vec3 lightPos(1.2f, 1.0f, 3.0);
 
@@ -34,12 +35,24 @@ int main(int argc, char* argv[]) {
 
 	Shader shader_light("../tests/Arkanoid/light.vs", "../tests/Arkanoid/light.fs");
 
+	Texture textureDiff_1("../tests/Arkanoid/Textures/diffuse_1.jpg");
+	Texture textureSpec_1("../tests/Arkanoid/Textures/specular_1.jpg");
+	Texture textureDiff_2("../tests/Arkanoid/Textures/diffuse_2.jpg");
+	Texture textureSpec_2("../tests/Arkanoid/Textures/specular_2.jpg");
+
 	Material material("../tests/Arkanoid/shader.vs", "../tests/Arkanoid/shader.fs",
 		"../tests/Arkanoid/Textures/diffuse_1.jpg", "../tests/Arkanoid/Textures/specular_1.jpg");
+
+	Material brickMaterial("../tests/Arkanoid/shader.vs", "../tests/Arkanoid/shader.fs");
+		
+	brickMaterial.addTexture(textureDiff_1, textureSpec_1);
+	brickMaterial.addTexture(textureDiff_2, textureSpec_2);
 
 	Material sphereMaterial("../tests/Arkanoid/Shaders/shader.vs", "../tests/Arkanoid/Shaders/shader.fs");
 
 	Drawable drawable_cube(&cube, &material);
+	Drawable drawable_brick(&cube, &brickMaterial);
+
 	Drawable drawable_sphere(&sphere, &sphereMaterial);
 
 	Platform player(drawable_cube);
@@ -50,7 +63,7 @@ int main(int argc, char* argv[]) {
 	Wall wall_top(&drawable_cube, glm::vec3(0.0f, 0.0f, 0.0f));
 
 	LevelBoundaries walls(&wall_top, &wall_left, &wall_right);
-	Level level(&drawable_cube, &ball, "../tests/Arkanoid/Levels/level1.txt");
+	Level level(&drawable_brick, &ball, "../tests/Arkanoid/Levels/level1.txt");
 
 	Scene scene;
 	scene.addGameObject(&player);

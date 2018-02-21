@@ -8,7 +8,7 @@ Brick::Brick() {
 	hits = 0;
 }
 
-Brick::Brick(Drawable * drawable, Ball* ball) {
+Brick::Brick(Drawable* drawable, Ball* ball) {
 	drawable_ = drawable;
 	ball_ = ball;
 	scale = BRICK_SCALE;
@@ -26,10 +26,11 @@ Brick::Brick(Drawable * drawable, Ball* ball) {
 
 }
 
-void Brick::initialize(Drawable * drawable, Ball* ball, const uint32_t n_hits, const glm::vec3 pos) {
+void Brick::initialize(Drawable* drawable, Ball* ball, const uint32_t n_hits, const glm::vec3 pos) {
 	drawable_ = drawable;
 	ball_ = ball;
 	hits = n_hits;
+
 	scale = BRICK_SCALE;
 	position = pos;
 	enabled = true;
@@ -61,6 +62,12 @@ void Brick::update(const float dt) {
 void Brick::render(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPos, glm::vec3 lightPos) {
 	if (!enabled)
 		return;
+
+	switch (hits) {
+	case 1: drawable_->getMaterial()->changeSelectedTexture(0); break;
+	case 2:  drawable_->getMaterial()->changeSelectedTexture(1); break;
+	default: drawable_->getMaterial()->changeSelectedTexture(0); break;
+	}
 	model = glm::mat4(1.0f);
 	model = glm::translate(model, position);
 	model = glm::scale(model, scale);

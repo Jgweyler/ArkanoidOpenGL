@@ -2,12 +2,17 @@
 #define __MATERIAL_H__
 #include <shader.h>
 #include<texture.h>
+#include <stdint.h>
+
+const uint32_t MAX_TEXTURES = 3;
 
 class Material {
 private:
 	Shader shader_;
-	Texture texture_diffuse;
-	Texture texture_specular;
+	uint32_t selected_Texture;
+	uint32_t nTextures;
+	Texture diffuse_textures[MAX_TEXTURES];
+	Texture specular_textures[MAX_TEXTURES];
 
 public:
 	
@@ -17,6 +22,9 @@ public:
 	Material(const char* vertexPath, const char* fragmentPath, const char * diffuseTexPath, const char * specularTexPath);
 	Material(Shader& shader, Texture& diffuse, Texture& specular);
 	~Material();
+	
+	void addTexture(Texture& texture_diffuse, Texture& texture_specular);
+	void changeSelectedTexture(const uint32_t select);
 
 	void use() const;
 

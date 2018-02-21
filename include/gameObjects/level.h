@@ -15,7 +15,7 @@ private:
 
 public:
 	Level();
-	Level(Drawable * cube_drawable, Ball* ball, const char * path);
+	Level(Drawable* cube_drawable, Ball* ball, const char * path);
 	void update(const float dt);
 	void render(glm::mat4 projection, glm::mat4 view, glm::vec3 cameraPos, glm::vec3 lightPos);
 

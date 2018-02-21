@@ -7,7 +7,7 @@ Drawable::Drawable() {
 
 }
 
-Drawable::Drawable(Geometry * geometry, Material * material) {
+Drawable::Drawable(Geometry * geometry, Material*  material) {
 	geometry_ = geometry;
 	material_ = material;
 }
@@ -18,6 +18,10 @@ Drawable::~Drawable() {
 
 float Drawable::getGeometryRadius() const {
 	return geometry_->getRadius();
+}
+
+Material* Drawable::getMaterial() const {
+	return material_;
 }
 
 void Drawable::render(glm::mat4 projection, glm::mat4 view, glm::mat4 model, glm::vec3 cameraPos, glm::vec3 lightPos) {
